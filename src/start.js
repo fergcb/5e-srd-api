@@ -1,23 +1,8 @@
 const mongoose = require('mongoose');
 const { promisify } = require('util');
 const { mongodbUri, redisClient } = require('./util');
-const { apolloClient } = require('./util');
 const app = require('./server');
 const flushAsync = promisify(redisClient.flushall).bind(redisClient);
-
-const { gql } = require('@apollo/client');
-apolloClient
-  .query({
-    query: gql`
-      query {
-        abilityScores {
-          name
-          url
-        }
-      }
-    `
-  })
-  .then(result => console.log(result));
 
 // Connect to database and start the serverfuser
 mongoose
